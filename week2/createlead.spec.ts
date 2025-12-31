@@ -1,4 +1,4 @@
-import test from "@playwright/test";
+import {test,expect} from "@playwright/test";
 
 test("createlead", async ({ page }) => {
 
@@ -22,12 +22,21 @@ test("createlead", async ({ page }) => {
          //await page.locator("//a[text()='Leads']").click()
         await page.locator("[class='smallSubmit']").click()
 
- const companyname = await page.locator ("#viewLead_companyName_sp").textContent()
+//just to verify the created lead details
+ /* const companyname = await page.locator ("#viewLead_companyName_sp").textContent()
     const firstName = await page.locator ("#viewLead_firstName_sp"). textContent()
     const lastName = await page.locator ("#viewLead_lastName_sp"). textContent()
     const status = await page.locator ("#viewLead_statusId_sp"). textContent()
     console.log("Company name: " +companyname+"\n" +"First Name: " +firstName+ "\n"+"Last Name: " +lastName+ "\n"+"Status: " +status)
     const title = await page.title()
-    console.log("Title: " +title)
+    console.log("Title: " +title) */
+
+//Assertions to verify the created lead details
+    await expect(page.locator("#viewLead_companyName_sp")).toContainText("Export");
+    await expect(page.locator("#viewLead_firstName_sp")).toHaveText("Karthick");
+    await expect(page.locator("#viewLead_lastName_sp")).toHaveText("N");
+    await expect(page.locator("#viewLead_statusId_sp")).toHaveText("Assigned");
+
+    console.log("Page Title : "+page.title);
 
 })
